@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 var lines = [];
 function processData(allText) {
-    var record_num = 3;  // or however many elements there are in each row
+    var record_num = 4;  // or however many elements there are in each row
     var allTextLines = allText.split(/\r\n|\n/);
     var entries = allTextLines[0].split(',');
 
@@ -20,22 +20,23 @@ function processData(allText) {
             var val = entries.shift();
             tarr.push(val);
         }
-		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/arrowhead.jpg');        
+		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/arrowhead.png', tarr[3]);        
         lines.push(tarr);
     }
+    console.log(lines);
 }
 
-//For reference
-place_marker(-86.5861, 34.7304, "HSV", '/resources/images/arrowhead.jpg');
-
-function place_marker(long, lat, name, marker) {
+//For reference //41.638757, -87.564333
+place_marker(-86.5861, 34.7304, "HSV", '/resources/images/arrowhead.png', null);
+function place_marker(long, lat, name, marker, link) {
   viewer.entities.add({
     position : Cesium.Cartesian3.fromDegrees(long, lat),
     billboard : {
         image : marker,
         width : 16,
-        height : 16
+		height : 16
     },
+    linkForPick : link,
     label : {
     text : name,
       font : '14pt monospace',
@@ -46,3 +47,30 @@ function place_marker(long, lat, name, marker) {
     }
   });
 }
+
+
+place_user_location(-87.6298, 41.855, -100);
+function place_user_location(long, lat, direction) {
+  viewer.entities.add({
+    position : Cesium.Cartesian3.fromDegrees(long, lat, 10668),
+    linkForPick : '/perspective.html',
+    billboard : {
+        image : '/resources/images/plane-icon.png',
+        width : 25,
+		height : 25,
+    	rotation : Cesium.Math.PI*2.3/3,
+    }
+  });
+}
+
+var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler.setInputAction(function(movement) {
+    "use strict";
+    var pickedObject = viewer.scene.pick(movement.position);
+    if (typeof pickedObject !== 'undefined' && typeof pickedObject.id.linkForPick !== 'undefined') {
+    	if(pickedObject.id.linkForPick == '/perspective.html')
+        	window.open(pickedObject.id.linkForPick, '_self');
+        else
+        	window.open(pickedObject.id.linkForPick, '_blank');
+    }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK)
