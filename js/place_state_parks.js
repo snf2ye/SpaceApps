@@ -10,8 +10,7 @@ $(document).ready(function() {
         type: "GET",
         url: "/resources/data/EnvironmentalData.csv",
         dataType: "text",
-        success: function(data) {processEnvironmentalData(data);},
-        error: function() { console.log("Fail!"); }
+        success: function(data) {processEnvironmentalData(data);}
      });
 });
 
@@ -48,9 +47,7 @@ function processEnvironmentalData(allText) {
         }
         place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/exc_mark.png', tarr[3]);        
         lines.push(tarr);
-        console.log(tarr[2] +","+ tarr[1] +":"+ tarr[0].replace(/\"/g, "")+"@"+tarr[3]);
     }
-    console.log(lines);
 }
 
 //For reference //41.638757, -87.564333
