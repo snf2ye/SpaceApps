@@ -1,6 +1,6 @@
 var layers = viewer.imageryLayers;
 var pop_dense = layers.addImageryProvider(new Cesium.ArcGisMapServerImageryProvider({
-        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/Demographics/USA_Population_Density/MapServer'
+        url : 'https://server.arcgisonline.com/ArcGIS/rest/services/Demographics/USA_Population_Density/MapServer'
     }));
 pop_dense.splitDirection = Cesium.ImagerySplitDirection.LEFT; // Only show to the left of the slider.
 
