@@ -75,21 +75,6 @@ function place_marker(long, lat, name, marker, link) {
   });
 }
 
-
-place_user_location(-87.6298, 41.855, -100);
-function place_user_location(long, lat, direction) {
-  viewer.entities.add({
-    position : Cesium.Cartesian3.fromDegrees(long, lat, 10668),
-    linkForPick : '/perspective.html',
-    billboard : {
-        image : '/resources/images/plane-icon.png',
-        width : 25,
-		height : 25,
-    	rotation : Cesium.Math.PI*2.3/3,
-    }
-  });
-}
-
 var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 handler.setInputAction(function(movement) {
     "use strict";
