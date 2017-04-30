@@ -57,19 +57,37 @@ handler.setInputAction(function(position) {
     flags.looking = false;
 }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
+function getFlagForKeyCode(keyCode) {
+    switch (keyCode) {
+    case 'W'.charCodeAt(0):
+        return 'moveForward';
+    case 'S'.charCodeAt(0):
+        return 'moveBackward';
+    case 'Q'.charCodeAt(0):
+        return 'moveUp';
+    case 'E'.charCodeAt(0):
+        return 'moveDown';
+    case 'D'.charCodeAt(0):
+        return 'moveRight';
+    case 'A'.charCodeAt(0):
+        return 'moveLeft';
+    default:
+        return undefined;
+    }
+}
 
 document.addEventListener('keydown', function(e) {
-    // var flagName = getFlagForKeyCode(e.keyCode);
-    // if (typeof flagName !== 'undefined') {
-    //     flags[flagName] = true;
-    // }
+    var flagName = getFlagForKeyCode(e.keyCode);
+    if (typeof flagName !== 'undefined') {
+        flags[flagName] = true;
+    }
 }, false);
 
 document.addEventListener('keyup', function(e) {
-    // var flagName = getFlagForKeyCode(e.keyCode);
-    // if (typeof flagName !== 'undefined') {
-    //     flags[flagName] = false;
-    // }
+    var flagName = getFlagForKeyCode(e.keyCode);
+    if (typeof flagName !== 'undefined') {
+        flags[flagName] = false;
+    }
 }, false);
 
 viewer.clock.onTick.addEventListener(function(clock) {
@@ -86,5 +104,23 @@ viewer.clock.onTick.addEventListener(function(clock) {
         var lookFactor = 0.05;
         camera.lookRight(x * lookFactor);
         camera.lookUp(y * lookFactor);
+    }
+
+        // Change movement speed based on the distance of the camera to the surface of the ellipsoid.
+    var cameraHeight = ellipsoid.cartesianToCartographic(camera.position).height;
+    var moveRate = cameraHeight / 100.0;
+    var lookRate = Cesium.Math.PI_OVER_TWO/16;
+
+    if (flags.moveForward) {
+        camera.lookUp(lookRate);
+    }
+    if (flags.moveBackward) {
+        camera.lookDown(lookRate);
+    }
+    if (flags.moveLeft) {
+        camera.lookLeft(lookRate);
+    }
+    if (flags.moveRight) {
+        camera.lookRight(lookRate);
     }
 });

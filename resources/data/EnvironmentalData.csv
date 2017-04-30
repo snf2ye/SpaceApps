@@ -1,7 +1,1 @@
-name,lat,long,urllink,imgname,
-Gypsy Moth Caterpillar Damage,41.8240,71.4128,https://climate.nasa.gov/images-of-change?id=595#595-gypsy-moth-caterpillars-damage-northeastern-us.-forests, Gypsy_Moth.jpg,
-Flooding from Hurricane Irene,41.806708,-74.413601,https://climate.nasa.gov/images-of-change?id=309#309-hurricane-irene-flooding-new-york,New_York_Flood.jpg,
-Flood in Iowa,40.6044,95.6578,https://climate.nasa.gov/images-of-change?id=326#326-flood-in-hamburg-iowa,Iowa_Flood.jpg,
-San Luis Valley stream change,37.7916,105.5943,https://climate.nasa.gov/images-of-change?id=470#470-san-luis-valley-stream-change-colorado,StreamChange.jpg,
-Lake Mead shrinkage,36.1311,114.4411,https://climate.nasa.gov/images-of-change?id=363#363-lake-mead-shrinkage-nevada,Lake_Mead.jpg
-
+Place Name,Latitude,Longitude,url,"Gypsy Moth Caterpillar Damage",41.8240,-71.4128,https://climate.nasa.gov/images-of-change?id=595#595-gypsy-moth-caterpillars-damage-northeastern-us.-forests,"Flooding from Hurricane Irene",41.806708,-74.413601,https://climate.nasa.gov/images-of-change?id=309#309-hurricane-irene-flooding-new-york,"Flood in Iowa",40.6044,-95.6578,https://climate.nasa.gov/images-of-change?id=326#326-flood-in-hamburg-iowa,"San Luis Valley stream change",37.7916,-105.5943,https://climate.nasa.gov/images-of-change?id=470#470-san-luis-valley-stream-change-colorado,"Lake Mead shrinkage",36.1311,114.4411,https://climate.nasa.gov/images-of-change?id=363#363-lake-mead-shrinkage-nevada,

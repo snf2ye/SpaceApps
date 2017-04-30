@@ -3,12 +3,19 @@ $(document).ready(function() {
         type: "GET",
         url: "/resources/data/NationalParks.csv",
         dataType: "text",
-        success: function(data) {processData(data);}
+        success: function(data) {processStateParkData(data);}
+     });
+
+    $.ajax({
+        type: "GET",
+        url: "/resources/data/EnvironmentalData.csv",
+        dataType: "text",
+        success: function(data) {processEnvironmentalData(data);}
      });
 });
 
-var lines = [];
-function processData(allText) {
+function processStateParkData(allText) {
+    var lines = [];
     var record_num = 4;  // or however many elements there are in each row
     var allTextLines = allText.split(/\r\n|\n/);
     var entries = allTextLines[0].split(',');
@@ -20,10 +27,27 @@ function processData(allText) {
             var val = entries.shift();
             tarr.push(val);
         }
-		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/arrowhead.png', tarr[3]);        
+		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/park_symbol.png', tarr[3]);        
         lines.push(tarr);
     }
-    console.log(lines);
+}
+
+function processEnvironmentalData(allText) {
+    var lines = [];
+    var record_num = 4;  // or however many elements there are in each row
+    var allTextLines = allText.split(/\r\n|\n/);
+    var entries = allTextLines[0].split(',');
+
+    var headings = entries.splice(0,record_num);
+    while (entries.length>1) { //for some reason is spitting up undefined row on the last, so exclude it
+        var tarr = [];
+        for (var j=0; j<record_num; j++) {
+            var val = entries.shift();
+            tarr.push(val);
+        }
+        place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/exc_mark.png', tarr[3]);        
+        lines.push(tarr);
+    }
 }
 
 //For reference //41.638757, -87.564333
@@ -33,8 +57,8 @@ function place_marker(long, lat, name, marker, link) {
     position : Cesium.Cartesian3.fromDegrees(long, lat),
     billboard : {
         image : marker,
-        width : 16,
-		height : 16
+        width : 25,
+		height : 25
     },
     linkForPick : link,
     label : {
@@ -44,21 +68,6 @@ function place_marker(long, lat, name, marker, link) {
       outlineWidth : 2,
       verticalOrigin : Cesium.VerticalOrigin.TOP,
       pixelOffset : new Cesium.Cartesian2(0, 32)
-    }
-  });
-}
-
-
-place_user_location(-87.6298, 41.855, -100);
-function place_user_location(long, lat, direction) {
-  viewer.entities.add({
-    position : Cesium.Cartesian3.fromDegrees(long, lat, 10668),
-    linkForPick : '/perspective.html',
-    billboard : {
-        image : '/resources/images/plane-icon.png',
-        width : 25,
-		height : 25,
-    	rotation : Cesium.Math.PI*2.3/3,
     }
   });
 }
