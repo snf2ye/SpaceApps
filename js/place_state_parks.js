@@ -50,8 +50,7 @@ function processEnvironmentalData(allText) {
     }
 }
 
-//For reference //41.638757, -87.564333
-place_marker(-86.5861, 34.7304, "HSV", '/resources/images/arrowhead.png', null);
+place_marker(-86.5861, 34.7304, "HSV", '/resources/images/rocket_icon.png', null);
 function place_marker(long, lat, name, marker, link) {
   viewer.entities.add({
     position : Cesium.Cartesian3.fromDegrees(long, lat),
