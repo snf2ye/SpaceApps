@@ -1,8 +1,8 @@
 //https://cesiumjs.org/tutorials/Camera-Tutorial/
 
 var alt = 20000;
-var startLong = -86.5861; 
-var startLat = 34.7304;
+var startLong = -87.6298;
+var startLat = 41.855;
 
 viewer.camera.setView({
     destination : new Cesium.Cartesian3.fromDegrees(startLong, startLat, alt),

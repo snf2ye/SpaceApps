@@ -20,16 +20,14 @@ function processData(allText) {
             var val = entries.shift();
             tarr.push(val);
         }
-		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/arrowhead.jpg', tarr[3]);        
+		place_marker(tarr[2], tarr[1], tarr[0].replace(/\"/g, ""), '/resources/images/arrowhead.png', tarr[3]);        
         lines.push(tarr);
     }
     console.log(lines);
 }
 
 //For reference //41.638757, -87.564333
-place_marker(-86.5861, 34.7304, "HSV", '/resources/images/arrowhead.jpg', null);
-place_marker(-87.564333, 41.638757, "CENTERPOINT", '/resources/images/arrowhead.jpg', null);
-
+place_marker(-86.5861, 34.7304, "HSV", '/resources/images/arrowhead.png', null);
 function place_marker(long, lat, name, marker, link) {
   viewer.entities.add({
     position : Cesium.Cartesian3.fromDegrees(long, lat),
@@ -50,11 +48,29 @@ function place_marker(long, lat, name, marker, link) {
   });
 }
 
+
+place_user_location(-87.6298, 41.855, -100);
+function place_user_location(long, lat, direction) {
+  viewer.entities.add({
+    position : Cesium.Cartesian3.fromDegrees(long, lat, 10668),
+    linkForPick : '/perspective.html',
+    billboard : {
+        image : '/resources/images/plane-icon.png',
+        width : 25,
+		height : 25,
+    	rotation : Cesium.Math.PI*2.3/3,
+    }
+  });
+}
+
 var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 handler.setInputAction(function(movement) {
     "use strict";
     var pickedObject = viewer.scene.pick(movement.position);
     if (typeof pickedObject !== 'undefined' && typeof pickedObject.id.linkForPick !== 'undefined') {
-        window.open(pickedObject.id.linkForPick, '_blank');
+    	if(pickedObject.id.linkForPick == '/perspective.html')
+        	window.open(pickedObject.id.linkForPick, '_self');
+        else
+        	window.open(pickedObject.id.linkForPick, '_blank');
     }
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
