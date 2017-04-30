@@ -7,7 +7,7 @@ var startLat = 41.855;
 viewer.camera.setView({
     destination : new Cesium.Cartesian3.fromDegrees(startLong, startLat, alt),
     orientation: {
-        heading : 0.0,
+        heading : -Cesium.Math.PI_OVER_TWO*1.09,
         pitch : -Cesium.Math.PI_OVER_TWO/8,
         roll : 0.0
     }
