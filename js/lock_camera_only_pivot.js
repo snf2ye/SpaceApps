@@ -1,10 +1,14 @@
 //https://cesiumjs.org/tutorials/Camera-Tutorial/
 
+var alt = 20000;
+var startLong = -86.5861; 
+var startLat = 34.7304;
+
 viewer.camera.setView({
-    destination : new Cesium.Cartesian3.fromDegrees(-86.5861, 34.7304, 20000),
+    destination : new Cesium.Cartesian3.fromDegrees(startLong, startLat, alt),
     orientation: {
         heading : 0.0,
-        pitch : -Cesium.Math.PI_OVER_TWO/4,
+        pitch : -Cesium.Math.PI_OVER_TWO/8,
         roll : 0.0
     }
 });
@@ -20,7 +24,8 @@ var ellipsoid = viewer.scene.globe.ellipsoid;
 viewer.scene.screenSpaceCameraController.enableRotate = false;
 viewer.scene.screenSpaceCameraController.enableTranslate = false;
 viewer.scene.screenSpaceCameraController.enableZoom = true;
-viewer.scene.screenSpaceCameraController.maximumZoomDistance  = 20000;
+viewer.scene.screenSpaceCameraController.minimumZoomDistance  = 1000;
+viewer.scene.screenSpaceCameraController.maximumZoomDistance  = alt;
 viewer.scene.screenSpaceCameraController.enableTilt = false;
 viewer.scene.screenSpaceCameraController.enableLook = false;
 
@@ -33,7 +38,8 @@ var flags = {
     moveUp : false,
     moveDown : false,
     moveLeft : false,
-    moveRight : false
+    moveRight : false,
+    progressInFlight : false
 };
 
 var handler = new Cesium.ScreenSpaceEventHandler(canvas);
@@ -51,37 +57,19 @@ handler.setInputAction(function(position) {
     flags.looking = false;
 }, Cesium.ScreenSpaceEventType.LEFT_UP);
 
-function getFlagForKeyCode(keyCode) {
-    switch (keyCode) {
-    case 'W'.charCodeAt(0):
-        return 'moveForward';
-    case 'S'.charCodeAt(0):
-        return 'moveBackward';
-    case 'Q'.charCodeAt(0):
-        return 'moveUp';
-    case 'E'.charCodeAt(0):
-        return 'moveDown';
-    case 'D'.charCodeAt(0):
-        return 'moveRight';
-    case 'A'.charCodeAt(0):
-        return 'moveLeft';
-    default:
-        return undefined;
-    }
-}
 
 document.addEventListener('keydown', function(e) {
-    var flagName = getFlagForKeyCode(e.keyCode);
-    if (typeof flagName !== 'undefined') {
-        flags[flagName] = true;
-    }
+    // var flagName = getFlagForKeyCode(e.keyCode);
+    // if (typeof flagName !== 'undefined') {
+    //     flags[flagName] = true;
+    // }
 }, false);
 
 document.addEventListener('keyup', function(e) {
-    var flagName = getFlagForKeyCode(e.keyCode);
-    if (typeof flagName !== 'undefined') {
-        flags[flagName] = false;
-    }
+    // var flagName = getFlagForKeyCode(e.keyCode);
+    // if (typeof flagName !== 'undefined') {
+    //     flags[flagName] = false;
+    // }
 }, false);
 
 viewer.clock.onTick.addEventListener(function(clock) {
@@ -98,28 +86,5 @@ viewer.clock.onTick.addEventListener(function(clock) {
         var lookFactor = 0.05;
         camera.lookRight(x * lookFactor);
         camera.lookUp(y * lookFactor);
-    }
-
-    // Change movement speed based on the distance of the camera to the surface of the ellipsoid.
-    var cameraHeight = ellipsoid.cartesianToCartographic(camera.position).height;
-    var moveRate = cameraHeight / 100.0;
-
-    if (flags.moveForward) {
-        camera.moveForward(moveRate);
-    }
-    if (flags.moveBackward) {
-        camera.moveBackward(moveRate);
-    }
-    if (flags.moveUp) {
-        camera.moveUp(moveRate);
-    }
-    if (flags.moveDown) {
-        camera.moveDown(moveRate);
-    }
-    if (flags.moveLeft) {
-        camera.moveLeft(moveRate);
-    }
-    if (flags.moveRight) {
-        camera.moveRight(moveRate);
     }
 });
