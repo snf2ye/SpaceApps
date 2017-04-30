@@ -28,10 +28,30 @@
         cursor: ew-resize;
     }
 
+        .toolbar-left {
+            display: block;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+          font-family: Sans-Serif;
+        }
+        .tip {
+          background-color: grey;
+          border-radius: 2px;
+        }
+        .button {
+          border-radius: 5px;
+        }
+
   </style>
 </head>
 <body>
   <div id="cesiumContainer"></div>
+  <div class="toolbar-left">
+    <div class="tip">&nbspExplore Population Density Data&nbsp</div>
+    <div>&nbsp</div>
+    <button class="button" onclick="location.href = '/top_view.html';">Back to Overview</button>
+  </div>
   <div id="slider"></div>
   <script src="js/init_cesium.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

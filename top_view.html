@@ -9,7 +9,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <title>Hello World!</title>
   <script src="../Build/Cesium/Cesium.js"></script>
-  <!-- <link rel="stylesheet" type="text/css" href="styles/SpaceStyles.css"> -->
   <style>
       @import url(../Build/Cesium/Widgets/widgets.css);
       html, body, #cesiumContainer {
@@ -22,12 +21,18 @@
             top: 5px;
             left: 5px;
         }
+        .tip {
+          font-family: Sans-Serif;
+          background-color: grey;
+          border-radius: 2px;
+        }
   </style>
 </head>
 <body>
   <div id="cesiumContainer"></div>
   <div class="toolbar-left">
-    <button onclick="alert('You clicked!');">Click me!</button>
+    <!-- <button onclick="alert('You clicked!');">Click me!</button> -->
+    <div class="tip">&nbsp&nbspBe sure to click on the icons, you might be surprised by what you find...&nbsp&nbsp</div>
   </div>
   <script src="js/init_cesium.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
