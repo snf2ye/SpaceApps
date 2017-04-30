@@ -68,7 +68,8 @@ function place_marker(long, lat, name, marker, link) {
       outlineWidth : 2,
       verticalOrigin : Cesium.VerticalOrigin.TOP,
       pixelOffset : new Cesium.Cartesian2(0, 32)
-    }
+    },
+	name: name
   });
 }
 
